@@ -11,7 +11,7 @@ export function useVisualMode(initial) {
       setHistory(prevHistory => [...prevHistory, newMode]);
     } else {
       setHistory(prevHistory => {
-        let res = prevHistory.splice(-1, 1, newMode)
+        prevHistory.splice(-1, 1, newMode)
         return prevHistory;
       });
     }
