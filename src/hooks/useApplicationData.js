@@ -1,10 +1,21 @@
 import React, { useEffect, useReducer} from "react";
+import { getAppointmentsForDay } from "../helpers/selectors"
 const axios = require('axios').default;
 
 
 const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
+
+
+function getDayIndexByAppointmentId(state, id) {
+  
+  for (let day of state.days) {
+    if (day.appointments.includes(id)) {
+      return state.days.indexOf(day)
+    }
+  }
+}
 
 function reducer(state, action) {
   switch (action.type) {
@@ -14,14 +25,20 @@ function reducer(state, action) {
       return { ...state, days: action.days, appointments: action.appointments, interviewers: action.interviewers }
     case SET_INTERVIEW: {
       const { id, interview } = action;
+      const dayIndex = getDayIndexByAppointmentId(state, action.id);
+      const newDays = [...state.days];
+      newDays[dayIndex] = {...newDays[dayIndex], spots: newDays[dayIndex].spots + (action.interview ? - 1 : 1)}
+
       return    { ...state,
       appointments: {
         ...state.appointments,
         [id]: {
           ...state.appointments[action.id],
-          interview:action.interview ? { ...interview } : null
+          interview:action.interview ? interview  : null
         }
-      }}
+      },
+      days: newDays
+    } 
     }
     default:
       throw new Error(
@@ -59,6 +76,12 @@ export default function useApplicationData() {
 
   }, [])
 
+
+
+
+
+
+
   function bookInterview(id, interview) {
     
     const appointment = {
@@ -67,10 +90,7 @@ export default function useApplicationData() {
     };
   
 
-    return axios
-      .put(`/api/appointments/${id}`, {
-      interview: interview
-    })
+    return axios.put(`/api/appointments/${id}`, appointment)
     .then(() => {
       dispatch({ type: SET_INTERVIEW, id, interview })
     })
@@ -85,10 +105,7 @@ export default function useApplicationData() {
       interview: null
     };  
 
-    return axios
-    .delete(`/api/appointments/${id}`, {
-      interview: null
-    })
+    return axios.delete(`/api/appointments/${id}`, appointment)
     .then(() => {
       dispatch({ type: SET_INTERVIEW, id, interview: null });
     })
