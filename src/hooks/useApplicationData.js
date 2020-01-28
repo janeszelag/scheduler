@@ -26,17 +26,20 @@ function reducer(state, action) {
     case SET_INTERVIEW: {
       const { id, interview } = action;
       const dayIndex = getDayIndexByAppointmentId(state, action.id);
-      const newDays = [...state.days];
-      newDays[dayIndex] = {...newDays[dayIndex], spots: newDays[dayIndex].spots + (action.interview ? - 1 : 1)}
-
-      return    { ...state,
-      appointments: {
+      const newDays = JSON.parse(JSON.stringify(state.days))
+      const appointments =  {
         ...state.appointments,
         [id]: {
           ...state.appointments[action.id],
           interview:action.interview ? interview  : null
         }
-      },
+      }
+      newDays[dayIndex].spots = state.days[dayIndex].appointments.length - 
+      state.days[dayIndex].appointments.filter((id) => appointments[id].interview).length
+      //{...newDays[dayIndex], spots: newDays[dayIndex].spots + (action.interview ? - 1 : 1)}
+
+      return    { ...state,
+      appointments,
       days: newDays
     } 
     }
