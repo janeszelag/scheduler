@@ -36,12 +36,13 @@ function reducer(state, action) {
       }
       newDays[dayIndex].spots = state.days[dayIndex].appointments.length - 
       state.days[dayIndex].appointments.filter((id) => appointments[id].interview).length
-      //{...newDays[dayIndex], spots: newDays[dayIndex].spots + (action.interview ? - 1 : 1)}
+     
 
-      return    { ...state,
+      return { ...state,
       appointments,
       days: newDays
-    } 
+      } 
+      
     }
     default:
       throw new Error(
