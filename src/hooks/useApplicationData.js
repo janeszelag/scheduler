@@ -12,7 +12,7 @@ function getDayIndexByAppointmentId(state, id) {
   
   for (let day of state.days) {
     if (day.appointments.includes(id)) {
-      return state.days.indexOf(day)
+      return state.days.indexOf(day);
     }
   }
 }
@@ -74,7 +74,7 @@ export default function useApplicationData() {
       dispatch({ type: SET_APPLICATION_DATA, days: daysData.data, appointments: appointmentsData.data, interviewers: interviewersData.data });
     })
 
-  }, [])
+  }, []);
 
 
 
