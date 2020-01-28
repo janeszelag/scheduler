@@ -169,4 +169,13 @@ $appointment-height: 11rem;
     color: $danger-color;
     margin-bottom: 1rem;
   }
+
+  &__errorRED {
+    font-size: 1.5rem;
+    color: #ee5253;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+
 }
