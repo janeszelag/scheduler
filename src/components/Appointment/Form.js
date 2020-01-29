@@ -8,7 +8,7 @@ export default function Form(props) {
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState('');
  
-
+  //functions used when a user clicks cancel
   const reset = function () {
     setName('');
     setInterviewer(null);
