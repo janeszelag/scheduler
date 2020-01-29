@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "components/Application.scss";
 import DayList from "components/DayList"
 import Appointment from "components/Appointment";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay }  from "../helpers/selectors";
 import useApplicationData from "../hooks/useApplicationData";
-const axios = require('axios').default;
+
 
 
 
