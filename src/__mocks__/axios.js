@@ -97,6 +97,18 @@ export default {
         statusText: "No Content" });
     }
 
+    if (url === `/api/appointments/3`) {
+      return Promise.resolve({ 
+        status: 204, 
+        statusText: "No Content" });
+    }
+
+    if (url === `/api/appointments/4`) {
+      return Promise.resolve({ 
+        status: 204, 
+        statusText: "No Content" });
+    }
+
   }),
 
   delete: jest.fn(url => {
@@ -110,6 +122,19 @@ export default {
         status: 204, 
         statusText: "No Content" });
     }
+    if (url === `/api/appointments/3`) {
+      return Promise.resolve({ 
+        status: 204, 
+        statusText: "No Content" });
+    }
+
+    if (url === `/api/appointments/4`) {
+      return Promise.resolve({ 
+        status: 204, 
+        statusText: "No Content" });
+    }
+
+
   })
   
 };
