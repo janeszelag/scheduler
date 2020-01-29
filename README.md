@@ -3,7 +3,13 @@
 ### A single page React application I built that allows users to book and cancel interviews.📆 Tested using both Jest and Cypress🤓
 
 
+## Screenshots
 
+!["Booking an interview"](https://github.com/janeszelag/scheduler/blob/master/docs/BookingInterview.gif?raw=true)
+
+!["Deleting an interview"](https://github.com/janeszelag/scheduler/blob/master/docs/DeletingInterview.gif?raw=true)
+
+!["Editing an interview"](https://github.com/janeszelag/scheduler/blob/master/docs/EdittingInterview.gif?raw=true)
 
 
 
