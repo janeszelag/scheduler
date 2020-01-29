@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import InterviewerList from "components/InterviewerList"
-import Button from "components/Button"
+import InterviewerList from "components/InterviewerList";
+import Button from "components/Button";
 
 
 export default function Form(props) {
@@ -17,11 +17,9 @@ export default function Form(props) {
   const cancel = function() {
     reset();
     props.onCancel();
-    
   }
 
-
-
+  //ensures that neither student name or interviewer are falsey before calling onSave to make the axios put request
   function validate() {
     if (name === "") {
       setError("Student name cannot be blank");
@@ -30,7 +28,7 @@ export default function Form(props) {
       setError("Please choose an interviewer.");
       return; 
     }
-  
+
     setError("");
     props.onSave(name, interviewer);
   }
@@ -58,10 +56,7 @@ export default function Form(props) {
       <section className="appointment__actions">
         <Button onClick={cancel} danger>Cancel</Button>
         <Button onClick={() => validate()} confirm>Save</Button>
-  
-       
       </section>
-      
     </section>
   </main>
   );
