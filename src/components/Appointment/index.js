@@ -1,17 +1,15 @@
 import React from "react";
 import "./styles.scss";
-import Show from "./Show"
-import Header from "./Header"
-import Empty from "./Empty"
-import Form from "./Form"
-import Status from "./Status"
-import Error from "./Error"
-import Confirm from "./Confirm"
-import {useVisualMode} from "../../hooks/useVisualMode";
-
+import Show from "./Show";
+import Header from "./Header";
+import Empty from "./Empty";
+import Form from "./Form";
+import Status from "./Status";
+import Error from "./Error";
+import Confirm from "./Confirm";
+import { useVisualMode } from "../../hooks/useVisualMode";
 
 export default function Appointment(props) {
-
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
@@ -26,7 +24,6 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
-
   //calls axios to update database with new interview
   function save(name, interviewer) {
     const interview = {
@@ -35,56 +32,63 @@ export default function Appointment(props) {
     };
     transition(SAVING);
 
-    props.bookInterview(props.id, interview)
-    .then(() => transition(SHOW))
-    .catch(() => transition(ERROR_SAVE, true))
+    props
+      .bookInterview(props.id, interview)
+      .then(() => transition(SHOW))
+      .catch(() => transition(ERROR_SAVE, true));
   }
 
   //calls axios to remove interview from databases
   function deleteAppt() {
     transition(DELETING);
-    props.cancelInterview(props.id)
-    .then(() => transition(EMPTY))
-    .catch(() => transition(ERROR_DELETE, true))
+    props
+      .cancelInterview(props.id)
+      .then(() => transition(EMPTY))
+      .catch(() => transition(ERROR_DELETE, true));
   }
 
-
   return (
-    <article className="appointment" data-testid="appointment" >
-      
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SAVING && <Status message={SAVING} />}
-      {mode === CREATE && 
-      <Form 
-      interviewers={props.interviewers} 
-      onCancel={() => back()}
-      onSave={save}
-      />}
-      {mode === EDIT && <Form 
-      interviewers={props.interviewers}
-      name={props.interview.student}
-      onCancel={() => transition(SHOW)}
-      onSave={save}
-      /> }
+      {mode === CREATE && (
+        <Form
+          interviewers={props.interviewers}
+          onCancel={() => back()}
+          onSave={save}
+        />
+      )}
+      {mode === EDIT && (
+        <Form
+          interviewers={props.interviewers}
+          name={props.interview.student}
+          onCancel={() => transition(SHOW)}
+          onSave={save}
+        />
+      )}
       {mode === DELETING && <Status message={DELETING} />}
       {mode === SHOW && (
-      <Show 
-      student={props.interview.student} 
-      interviewer={props.interview.interviewer} 
-      onDelete={() => transition(CONFIRM)} 
-      onEdit={() => transition(EDIT)}
-        />)}
-      {mode === CONFIRM && <Confirm 
-      onConfirm={deleteAppt} 
-      onCancel={() => transition(SHOW, true)} 
-      message="Are you sure you would like to delete?"
-      />}
-      {mode === ERROR_SAVE && <Error message="Could not save interview" onClose={() => back()} />}
-      {mode === ERROR_DELETE && <Error message="Could not delete interview" onClose={() => back()} />}
+        <Show
+          student={props.interview.student}
+          interviewer={props.interview.interviewer}
+          onDelete={() => transition(CONFIRM)}
+          onEdit={() => transition(EDIT)}
+        />
+      )}
+      {mode === CONFIRM && (
+        <Confirm
+          onConfirm={deleteAppt}
+          onCancel={() => transition(SHOW, true)}
+          message="Are you sure you would like to delete?"
+        />
+      )}
+      {mode === ERROR_SAVE && (
+        <Error message="Could not save interview" onClose={() => back()} />
+      )}
+      {mode === ERROR_DELETE && (
+        <Error message="Could not delete interview" onClose={() => back()} />
+      )}
     </article>
-   
   );
-}; 
-
-
+}
